@@ -12,7 +12,7 @@ package Edificios;
 public class Mina implements Edificios{
     String nombre = "Mina";
     private int vida,faseConstruccion,costoOro,costoEnergia,costoProvisiones,faseCreacion;
-    
+    private int RecolectPorFase;
     public Mina() {
         this.vida = 900;
         this.faseConstruccion = 1;
@@ -20,8 +20,19 @@ public class Mina implements Edificios{
         this.costoEnergia = 50;
         this.costoProvisiones = 40;
         this.faseCreacion = 0;
+        this.RecolectPorFase = 100;
     }
 
+    @Override
+    public int getRecolectPorFase() {
+        return RecolectPorFase;
+    }
+
+    @Override
+    public void setRecolectPorFase(int RecolectPorFase) {
+        this.RecolectPorFase = RecolectPorFase;
+    }
+    
     @Override
     public String getNombre() {
         return this.nombre;

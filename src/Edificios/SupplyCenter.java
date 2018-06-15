@@ -5,6 +5,8 @@
  */
 package Edificios;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author ryane
@@ -12,7 +14,7 @@ package Edificios;
 public class SupplyCenter implements Edificios{
     String nombre = "Supply Center";
     private int vida,faseConstruccion,costoOro,costoEnergia,costoProvisiones,faseCreacion;
-    
+    private int RecolectPorFase;
     public SupplyCenter() {
         this.vida = 1200;
         this.faseConstruccion = 2;
@@ -20,8 +22,18 @@ public class SupplyCenter implements Edificios{
         this.costoEnergia = 35;
         this.costoProvisiones = 0;
         this.faseCreacion = 1;
+        this.RecolectPorFase = 150;
+    }
+    @Override
+    public int getRecolectPorFase() {
+        return RecolectPorFase;
     }
 
+    @Override
+    public void setRecolectPorFase(int RecolectPorFase) {
+        this.RecolectPorFase = RecolectPorFase;
+    }
+    
     @Override
     public String getNombre() {
         return this.nombre;

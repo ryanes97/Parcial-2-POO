@@ -5,6 +5,8 @@
  */
 package raulyanesworld;
 
+import Edificios.Edificios;
+import Ejercito.Ejercito;
 import java.util.Scanner;
 
 /**
@@ -72,9 +74,10 @@ public class Menu {
         Scanner leer = new Scanner(System.in);
         System.out.println("1.Administrar Edificios");
         System.out.println("2.Entrenar Tropas");
-        System.out.println("3.Ensamblar Vehiculos");        
-        System.out.println("4.Atacar");
-        System.out.println("5.Terminar Turno");
+        System.out.println("3.Ensamblar Vehiculos"); 
+        System.out.println("4.Recolectar Recursos");
+        System.out.println("5.Atacar");
+        System.out.println("6.Terminar Turno");
         System.out.print("Elige una opcion: ");
         opc=leer.nextInt();
         return opc;
@@ -124,13 +127,14 @@ public class Menu {
                 break;
             }
             j1.RevisarFase();;
-            j1.Turno();
+            j1.Turno(j2);
             j2.RevisarFase();;
-            j2.Turno();
+            j2.Turno(j1);
             
             j1.FaseAvanzar();
             j2.FaseAvanzar();
             
         }       
+        
     }
 }

@@ -8,8 +8,13 @@ package raulyanesworld;
 import Edificios.Edificios;
 import Edificios.FactoryEdificios;
 import Ejercito.Ejercito;
+import Ejercito.Soldado;
+import Ejercito.SoldadoEspecial;
+import Vehiculos.Avion;
+import Vehiculos.Tanque;
 import Vehiculos.Vehiculo;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -21,6 +26,10 @@ public class Jugador {
     private AbstractFactory factoEdi = FactoryProducer.getFactory("Edificios");
     private AbstractFactory factoEj = FactoryProducer.getFactory("Ejercito");
     private AbstractFactory factoVeh = FactoryProducer.getFactory("Vehiculo");
+    private Ejercito soldado;
+    private Ejercito soldadoEsp;
+    private Vehiculo avion;
+    private Vehiculo tanque;
     private String nombre, bando;
     private int fase;
     private Menu menus;
@@ -36,6 +45,7 @@ public class Jugador {
         this.Oro = 100;
         this.Energia = 100;
         this.Provisiones = 100;
+        
         
         Edificios.add(factoEdi.getEdificios("Command Center"));
         this.fase = 1;
@@ -122,12 +132,12 @@ public class Jugador {
         this.fase += 1;
     }
     
-    public void Turno(){
+    public void Turno(Jugador j1){
         int opcion=0, opc1=0;
         Menu menus = Menu.getInstance();
         Scanner leer = new Scanner(System.in);
         
-        while(opcion!=5){
+        while(opcion!=6){
             System.out.println("******************Fase "+this.fase+"*********************");
             System.out.println("--------------Turno de "+this.getNombre()+"---------------");
             System.out.println("Recursos -> Oro:"+this.Oro+" Energia:"+this.Energia+" Provisiones:"+this.Provisiones);
@@ -152,12 +162,12 @@ public class Jugador {
                     switch(opc2){
                         case 1:
                             if(verifacarCostoEJ(factoEj.getEjercito("Soldado"))!=false){
-                                Ejercito.add(factoEj.getEjercito("Soldado"));
-                                System.out.println(this.fase);
-                                factoEj.getEjercito("Soldado").setFaseCreacion(this.fase);
-                                System.out.println("SET FASE: "+factoEj.getEjercito("Soldado").getFaseCreacion());
-                                //factoEj.getEjercito("Soldado").setFaseCreacion(this.fase);
-                                System.out.println("Soldado terminara entranamiento en "+factoEj.getEjercito("Soldado").getFaseEntrenamiento()+" fases");
+                                soldado = factoEj.getEjercito("Soldado");
+                                Ejercito.add(soldado);
+                                //System.out.println(this.fase);
+                                soldado.setFaseCreacion(this.fase);
+                                //System.out.println("SET FASE: "+soldado.getFaseCreacion());
+                                System.out.println("Soldado terminara entranamiento en "+soldado.getFaseEntrenamiento()+" fases");
                                 DescontarCostoEJ(factoEj.getEjercito("Soldado"));
                             }else{
                                 System.out.println("No tienes suficientes recurso");
@@ -165,9 +175,10 @@ public class Jugador {
                             break;
                         case 2:
                             if(verifacarCostoEJ(factoEj.getEjercito("Soldado Especial"))!=false){
-                                //Ejercito.add(factoEj.getEjercito("Soldado Especial"));
-                                //factoEj.getEjercito("Soldado Especial").setFaseCreacion(this.fase);
-                                System.out.println("Soldado terminara entranamiento en "+factoEj.getEjercito("Soldado Especial").getFaseEntrenamiento()+" fases");
+                                soldadoEsp = factoEj.getEjercito("Soldado Especial");
+                                Ejercito.add(soldadoEsp);
+                                soldadoEsp.setFaseCreacion(this.fase);
+                                System.out.println("Soldado terminara entranamiento en "+soldadoEsp.getFaseEntrenamiento()+" fases");
                                 DescontarCostoEJ(factoEj.getEjercito("Soldado Especial"));
                             }else{
                                 System.out.println("No tienes suficientes recurso");
@@ -183,11 +194,12 @@ public class Jugador {
                     switch(opc3){
                         case 1:
                             if(verifacarCostoVEH(factoVeh.getVehiculo("Tanque"))!=false){
-                                Vehiculos.add(factoVeh.getVehiculo("Tanque"));
+                                tanque = factoVeh.getVehiculo("Tanque");
+                                Vehiculos.add(tanque);
                                 //System.out.println(this.fase);
-                                //factoVeh.getVehiculo("Tanque").setFaseCreacion(this.fase);
+                                tanque.setFaseCreacion(this.fase);
                                 //System.out.println("SET FASE"+factoVeh.getVehiculo("Tanque").getFaseCreacion());
-                                System.out.println("El vehiculo sera ensamblado en "+factoVeh.getVehiculo("Tanque").getFaseEntrenamiento()+" fase");
+                                System.out.println("El vehiculo sera ensamblado en "+tanque.getFaseEntrenamiento()+" fase");
                                 DescontarCostoVEH(factoVeh.getVehiculo("Tanque"));
                             }else{
                                 System.out.println("No tienes suficientes recurso");
@@ -195,9 +207,10 @@ public class Jugador {
                             break;
                         case 2:
                             if(verifacarCostoVEH(factoVeh.getVehiculo("Avion"))!=false){
-                                Vehiculos.add(factoVeh.getVehiculo("Avion"));
-                                factoVeh.getVehiculo("Avion").setFaseCreacion(this.fase);
-                                System.out.println("El vehiculo sera ensamblado en "+factoVeh.getVehiculo("Avion").getFaseEntrenamiento()+" fase");
+                                avion = factoVeh.getVehiculo("Avion");
+                                Vehiculos.add(avion);
+                                avion.setFaseCreacion(this.fase);
+                                System.out.println("El vehiculo sera ensamblado en "+avion.getFaseEntrenamiento()+" fase");
                                 DescontarCostoVEH(factoVeh.getVehiculo("Avion"));
                             }else{
                                 System.out.println("No tienes suficientes recurso");
@@ -209,7 +222,12 @@ public class Jugador {
                     }
                     break;
                 case 4:
-                    //Atacar
+                    Recolectores();
+                    break;
+                case 5:
+                    
+                    elegirTropa();
+                    break;
             }
         }
     }
@@ -309,18 +327,27 @@ public class Jugador {
     }
     //Mostrar bien el arraylist
     public void MostrarEdificios(){
-        System.out.println("Mostrar Estructuras");
-        System.out.println(Edificios);
+        Iterator<Edificios> nombreIt = Edificios.iterator();
+        while(nombreIt.hasNext()){
+            Edificios edi = nombreIt.next();
+            System.out.println(edi.getNombre()+" Vida: "+edi.getVida()+" , ");
+        }
     }
     
     public void MostrarTropas(){
-        System.out.println("Mostrar Tropas");
-        System.out.println(Ejercito);
+        Iterator<Ejercito> nombreIt = Ejercito.iterator();
+        while(nombreIt.hasNext()){
+            Ejercito edi = nombreIt.next();
+            System.out.println(edi.getNombre() +" , ");
+        }
     }
     
     public void MostrarVehiculos(){
-        System.out.println("Mostrar Vehiculos");
-        System.out.println(Vehiculos);
+        Iterator<Vehiculo> nombreIt = Vehiculos.iterator();
+        while(nombreIt.hasNext()){
+            Vehiculo edi = nombreIt.next();
+            System.out.println(edi.getNombre() +" , ");
+        }
     }
     public boolean verifacarCosto(Edificios edi){
         boolean revision=false;
@@ -453,9 +480,107 @@ public class Jugador {
         if(Vehiculos.getFaseEntrenamiento()+Vehiculos.getFaseCreacion() == this.fase){
                 System.out.println("**********************************************");
                 System.out.println("Vehiculo Ensamblado y listo");
-        }
-    }
-        
+            }
+        }  
     }
     
-}
+    public void Recolectores(){
+        int opc;
+        System.out.println("-------Recolectores---------");
+        System.out.println("1.Mina(Oro)");
+        System.out.println("2.Planta Electrica(Energia)");
+        System.out.println("3.Supply Center(Provisiones)");
+        System.out.print("Eliga una opcion: ");
+        Scanner leer = new Scanner(System.in);
+        opc=leer.nextInt();
+        switch(opc){
+            case 1:
+                for(Edificios Edificios : this.Edificios){
+                    if("Mina".equals(Edificios.getNombre())){
+                        this.Oro += factoEdi.getEdificios("Mina").getRecolectPorFase();
+                        System.out.println("*******Recurso Recolectado*********");
+                        System.out.println("Mina: "+this.Oro);
+                    }else{
+                        System.out.println("Tienes que construir una Mina antes");
+                    }
+                }
+                break;
+            case 2:
+                for(Edificios Edificios : this.Edificios){
+                    if("Planta Electrica".equals(Edificios.getNombre())){
+                        this.Oro += factoEdi.getEdificios("PlantaElectrica").getRecolectPorFase();
+                        System.out.println("*******Recurso Recolectado*********");
+                        System.out.println("Energia: "+this.Energia);
+                    }else{
+                        System.out.println("Tienes que construir una Planta Electrica antes");
+                    }
+                }
+                break;
+            case 3:
+                for(Edificios Edificios : this.Edificios){
+                    if("Supply Center".equals(Edificios.getNombre())){
+                        this.Oro += factoEdi.getEdificios("SupplyCenter").getRecolectPorFase();
+                        System.out.println("*******Recurso Recolectado*********");
+                        System.out.println("Provisiones: "+this.Provisiones);
+                    }else{
+                        System.out.println("Tienes que construir un Supply Center antes");
+                    }
+                }
+                break;
+        }
+    }
+    
+    public void Atacar(Ejercito tropa){
+        Edificios EdiAtacado = Edificios.get(Edificios.size()-1);
+        int atk = factoEj.getEjercito(tropa.getNombre()).getDanio();
+        int edi = EdiAtacado.getVida();
+        edi -= atk;
+    }
+    
+    public void AtacarVEH(Vehiculo tropa){
+        Edificios EdiAtacado = Edificios.get(Edificios.size()-1);
+        int atk = factoVeh.getEjercito(tropa.getNombre()).getDanio();
+        int edi = EdiAtacado.getVida();
+        edi -= atk;
+    }
+    
+    
+    public void elegirTropa(){
+        String opc;
+        Scanner leer = new Scanner(System.in);
+        Iterator<Ejercito> nombreIt = Ejercito.iterator();
+        while(nombreIt.hasNext()){
+            Ejercito edi = nombreIt.next();
+            System.out.println(edi.getNombre());
+            //for(int i=1 ; i <=Ejercito.size();i++){
+                
+            }
+        System.out.print("Elige una tropa para atacar: ");
+        opc=leer.nextLine();
+        switch(opc){
+            case "Soldado":
+                Atacar(soldado);
+                System.out.println("Soldado Ataco");
+                break;
+            case "Soldado Especial":
+                Atacar(soldadoEsp);
+                System.out.println("Soldado Especial Ataco");
+                break;
+            case "Avion de Combate":
+                AtacarVEH(avion);
+                System.out.println("Avion de Combate Ataco");
+                break;
+            case "Tanque":
+                AtacarVEH(tanque);
+                System.out.println("Tanque Ataco");
+                break;
+        }
+    }
+    
+    
+    
+    }
+    
+   
+    
+    

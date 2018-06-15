@@ -12,7 +12,7 @@ package Vehiculos;
 public class Tanque implements Vehiculo{
     private String nombre = "Tanque";
     private int vida,faseEntrenamiento,costoOro,costoEnergia,costoProvisiones;
-    private int faseCreacion;
+    private int faseCreacion,danio;
 
     public Tanque() {
         this.vida = 1200;
@@ -21,6 +21,17 @@ public class Tanque implements Vehiculo{
         this.costoEnergia = 90;
         this.costoProvisiones = 60;
         this.faseCreacion = 1;
+        this.danio = 1000;
+    }
+
+    @Override
+    public int getDanio() {
+        return danio;
+    }
+
+    @Override
+    public void setDanio(int danio) {
+        this.danio = danio;
     }
     
     @Override

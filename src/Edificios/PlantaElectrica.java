@@ -12,7 +12,7 @@ package Edificios;
 public class PlantaElectrica implements Edificios{
     String nombre = "Planat Electrica";
     private int vida,faseConstruccion,costoOro,costoEnergia,costoProvisiones,faseCreacion;
-    
+    private int RecolectPorFase;
     public PlantaElectrica() {
         this.vida = 1100;
         this.faseConstruccion = 1;
@@ -20,6 +20,17 @@ public class PlantaElectrica implements Edificios{
         this.costoEnergia = 0;
         this.costoProvisiones = 40;
         this.faseCreacion = 1;
+        this.RecolectPorFase = 125;
+    }
+
+    @Override
+    public int getRecolectPorFase() {
+        return RecolectPorFase;
+    }
+
+    @Override
+    public void setRecolectPorFase(int RecolectPorFase) {
+        this.RecolectPorFase = RecolectPorFase;
     }
     
     @Override

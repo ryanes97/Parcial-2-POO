@@ -31,5 +31,6 @@ public interface Edificios {
     void setCostoProvisiones(int provisiones);
     void setFaseCreacion(int fase);
     int getFaseCreacion();
-    
+    int getRecolectPorFase();
+    void setRecolectPorFase(int RecolectPorFase);
 }

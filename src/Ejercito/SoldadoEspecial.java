@@ -12,7 +12,7 @@ package Ejercito;
 public class SoldadoEspecial implements Ejercito{
  private String nombre = "Soldado Especial";
     private int vida,faseEntrenamiento,costoOro,costoEnergia,costoProvisiones;
-    private int faseCreacion;
+    private int faseCreacion,danio;
     
     public SoldadoEspecial() {
         this.vida = 200;
@@ -21,6 +21,16 @@ public class SoldadoEspecial implements Ejercito{
         this.costoEnergia = 30;
         this.costoProvisiones = 20;
         this.faseCreacion = 0;
+        this.danio = 800;
+    }
+     @Override
+    public int getDanio() {
+        return danio;
+    }
+
+    @Override
+    public void setDanio(int danio) {
+        this.danio = danio;
     }
     
     @Override

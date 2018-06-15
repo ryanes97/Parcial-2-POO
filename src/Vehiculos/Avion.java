@@ -12,7 +12,7 @@ package Vehiculos;
 public class Avion implements Vehiculo{
     private String nombre = "Avion de Combate";
     private int vida,faseEntrenamiento,costoOro,costoEnergia,costoProvisiones;
-    private int faseCreacion;
+    private int faseCreacion,danio;
 
     public Avion() {
         this.vida = 600;
@@ -21,6 +21,16 @@ public class Avion implements Vehiculo{
         this.costoEnergia = 90;
         this.costoProvisiones = 45;
         this.faseCreacion = 0;
+        this.danio = 1200;
+    }
+     @Override
+    public int getDanio() {
+        return danio;
+    }
+
+    @Override
+    public void setDanio(int danio) {
+        this.danio = danio;
     }
     
     @Override

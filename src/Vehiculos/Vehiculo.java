@@ -24,4 +24,6 @@ public interface Vehiculo {
     void setCostoProvisiones(int provisiones);
     void setFaseCreacion(int fase);
     int getFaseCreacion();
+    int getDanio();
+    void setDanio(int danio);
 }

@@ -127,5 +127,15 @@ public class Barracks implements Edificios{
     public int getFaseCreacion() {
         return faseCreacion;
     }
+
+    @Override
+    public int getRecolectPorFase() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setRecolectPorFase(int RecolectPorFase) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
